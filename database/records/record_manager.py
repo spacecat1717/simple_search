@@ -1,6 +1,6 @@
 """This class created for manage Record instances (like a high_level class). It can create Record instances,
  call Record methods and do some stuff with records (including DB manipulations)"""
-
+import asyncio
 from datetime import datetime
 
 from config.log_config import Logger as Log
@@ -33,7 +33,7 @@ class RecordManager:
             res = await conn.fetch(command, record_id)
             if res:
                 Log.logger.info('[DB] Record %r was found', record_id)
-                return Record(record_id=res[0][0], rubrics=res[1][0], text=res[2][0], created_date=res[3][0])
+                return Record(record_id=res[0][0], rubrics=res[0][1], text=res[0][2], created_date=res[0][3])
             Log.logger.warning('[DB] Record %r does not exists', record_id)
             return False
 
@@ -42,5 +42,3 @@ class RecordManager:
 
     async def get_records_by_search(self, ids: list) -> list[Record]:
         pass
-
-

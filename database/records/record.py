@@ -1,5 +1,5 @@
 """Every record is an instance of Record class
-I created save_record and delete_record methods to have an opportunity to add and remove records in DB
+I created save_record method to have an opportunity to add records in DB
 I thought, it might be helpful if this service will grow up or will be the base for a some big project
 """
 
@@ -16,6 +16,12 @@ class Record:
         self.created_date = created_date
         self.id = record_id
 
+    def __dict__(self) -> dict:
+        return {'id': self.id, 'rubrics': self.rubrics, 'text': self.text, 'created_date': self.created_date}
+
+    async def as_dict(self) -> dict:
+        return self.__dict__()
+
     async def save_record(self) -> bool:
         command = (
             "INSERT INTO test_table3(rubrics, text, created_date) VALUES ($1, $2, $3) RETURNING id"
@@ -31,6 +37,7 @@ class Record:
             return False
 
     async def delete_record(self) -> bool:
+        #TODO: add deletion from ES
         command = (
             "DELETE FROM test_table3 WHERE id = $1"
         )
