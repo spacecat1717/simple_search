@@ -12,9 +12,9 @@ class RecordManager:
     def __init__(self):
         self._connection = Connection()
 
-    async def _create_instance(self, rubrics: str, text: str) -> Record:
-        return Record(rubrics=rubrics, text=text,
-                      created_date=datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+    async def _create_instance(self, rubrics: str, text: str, rec_id=None,
+                               created_date=datetime.now().strftime("%Y-%m-%d %H:%M:%S")) -> Record:
+        return Record(record_id=rec_id, rubrics=rubrics, text=text, created_date=created_date)
 
     async def new_record(self, rubrics: str, text: str) -> Record or False:
         record = await self._create_instance(rubrics, text)
@@ -43,5 +43,19 @@ class RecordManager:
             return True
         return False
 
-    async def get_records_by_search(self, ids: list) -> list[Record]:
-        pass
+    async def get_records_by_search(self, ids: list) -> list[dict]:
+        command = (
+            "SELECT * FROM test_table3 WHERE id IN {} ORDER BY created_date LIMIT 20"
+        )
+        async with self._connection as conn:
+            sql = command.format(tuple(ids))
+            res = await conn.fetch(sql)
+        result = []
+        for r in res:
+            record = await self._create_instance(rec_id=r[0], rubrics=r[1], text=r[2], created_date=r[3])
+            result.append(await record.as_dict())
+        Log.logger.info('[DB] Records by search query were got')
+        return result
+
+#m = RecordManager()
+#asyncio.run(m.get_records_by_search([17, 14, 15, 27, 61, 55, 75, 29, 95, 23, 8, 19, 93]))

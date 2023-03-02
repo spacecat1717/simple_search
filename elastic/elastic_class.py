@@ -89,16 +89,24 @@ class ElasticManager:
             Log.logger.error('[ES] Could not delete record %r. Reason: %r', rec_id, e)
             return False
 
-    async def search(self, query: str) -> dict or False:
+    async def _convert_data(self, data: dict) -> list:
+        ids = []
+        for d in data:
+            ids.append(d['_source']['iD'])
+        return ids
+
+    async def search(self, query: str) -> list or False:
         body = {
             "query": {"match": {"text_data": query}}
         }
         try:
             res = await self._es.search(index='records', body=body, size=20)
             Log.logger.info('[ES] Query was found')
-            return res['hits']['hits']
+            return await self._convert_data(res['hits']['hits'])
         except Exception as e:
             Log.logger.error('[ES] Search failed. Reason: %r', e)
             return False
 
 
+#es = ElasticManager()
+#print(asyncio.run(es.search('Решил сделать')))

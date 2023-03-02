@@ -1,9 +1,17 @@
 import asyncio
+import logging
 
-from database.create_table import CreateTable
+from quart import Quart
+from quart_cors import cors
 
-table = CreateTable()
+from blueprints.search import do_search
+
+logging.basicConfig(level=logging.DEBUG)
+
+app = Quart(__name__, static_url_path='/')
+app = cors(app, allow_origin='*')
+app.register_blueprint(do_search, url_prefix='/search')
+
 
 if __name__ == "__main__":
-    asyncio.run(table.create_table())
-    #TODO: add quart app here
+    app.run(host='0.0.0.0', port=8000, debug=True)
