@@ -89,3 +89,16 @@ class ElasticManager:
             Log.logger.error('[ES] Could not delete record %r. Reason: %r', rec_id, e)
             return False
 
+    async def search(self, query: str) -> dict or False:
+        body = {
+            "query": {"match": {"text_data": query}}
+        }
+        try:
+            res = await self._es.search(index='records', body=body, size=20)
+            Log.logger.info('[ES] Query was found')
+            return res['hits']['hits']
+        except Exception as e:
+            Log.logger.error('[ES] Search failed. Reason: %r', e)
+            return False
+
+
