@@ -38,7 +38,10 @@ class RecordManager:
             return False
 
     async def delete_record(self, record_id: int) -> bool:
-        pass
+        record = await self._get_record_by_id(record_id)
+        if await record.delete_record():
+            return True
+        return False
 
     async def get_records_by_search(self, ids: list) -> list[Record]:
         pass

@@ -6,11 +6,13 @@ I thought, it might be helpful if this service will grow up or will be the base 
 
 from config.log_config import Logger as Log
 from database.connection import Connection
+from elastic.elastic_class import ElasticManager
 
 
 class Record:
     def __init__(self, rubrics: str, text: str, created_date: str, record_id=None) -> None:
         self._connection = Connection()
+        self._es = ElasticManager()
         self.rubrics = rubrics
         self.text = text
         self.created_date = created_date
@@ -37,15 +39,17 @@ class Record:
             return False
 
     async def delete_record(self) -> bool:
-        #TODO: add deletion from ES
         command = (
             "DELETE FROM test_table3 WHERE id = $1"
         )
         try:
             async with self._connection as conn:
                 await conn.execute(command, self.id)
-            Log.logger.info('[DB] Record %r was deleted', self.id)
-            return True
+            Log.logger.info('[DB] Record %r was deleted from DB', self.id)
+            if await self._es.delete_record(self.id):
+                return True
+            Log.logger.error('[DB] Could not delete record %r. Something went wrong with ES', self.id)
+            return False
         except Exception as e:
             Log.logger.error('[DB] Could not delete record %r. Reason: %r', self.id, e)
             return False
