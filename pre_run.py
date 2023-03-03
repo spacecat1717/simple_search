@@ -3,7 +3,6 @@
 import asyncio
 
 from config.config import PATH_TO_CSV
-from config.log_config import Logger as Log
 from database.create_table import CreateTable
 from database.import_modules.import_from_csv import ImportFromCsv
 from database.export_modules.export_to_elastic import ExportToElasticsearch

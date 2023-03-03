@@ -8,6 +8,7 @@ from database.import_modules.base_class import ImportManager
 
 
 class ImportFromCsv(ImportManager):
+    """Inports data from csv file to DB"""
 
     async def import_from_file(self, filepath: str) -> bool:
         Log.logger.info('Starting to import file...')

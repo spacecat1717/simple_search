@@ -1,4 +1,3 @@
-import asyncio
 import httpx
 
 from elasticsearch import AsyncElasticsearch
@@ -7,6 +6,8 @@ from config.log_config import Logger as Log
 
 
 class ElasticManager:
+    """Works with ES
+    Wrote as Singleton"""
     __instance = None
 
     def __new__(cls):
@@ -24,6 +25,9 @@ class ElasticManager:
         self._es = AsyncElasticsearch(hosts=self._url)
 
     async def test_conn(self) -> bool:
+        """Tests connection to ES before the service is starting
+        Calls in pre_run.py
+        """
         substring = 'You Know, for Search'.encode()
         async with self._client as client:
             response = await client.get(self._url)
@@ -35,6 +39,7 @@ class ElasticManager:
                 return False
 
     async def create_index(self) -> bool:
+        """Creates new index with config for language analysis"""
         data = {
             "mappings": {
                 "properties": {
@@ -69,6 +74,8 @@ class ElasticManager:
             return False
 
     async def add_record(self, record: dict) -> bool:
+        """Add one new record in ES
+        :param record is a Record.as_dict() result"""
         try:
             doc = {
                 "iD": record["id"],
@@ -81,6 +88,7 @@ class ElasticManager:
             Log.logger.error('[ES] Could not save record %r in index. Reason: %r', record["id"], e)
 
     async def delete_record(self, rec_id: int) -> bool:
+        """Delete one new record by its index"""
         try:
             await self._es.delete(index='records', id=str(rec_id))
             Log.logger.info('[ES] Record %r was deleted', rec_id)
@@ -90,12 +98,16 @@ class ElasticManager:
             return False
 
     async def _convert_data(self, data: dict) -> list:
+        """Convert search result with only necessary data
+        :param data: raw search result"""
         ids = []
         for d in data:
             ids.append(d['_source']['iD'])
         return ids
 
     async def search(self, query: str) -> list or False:
+        """Do search by query
+         :return converted data (final result)"""
         body = {
             "query": {"match": {"text_data": query}}
         }
@@ -106,7 +118,3 @@ class ElasticManager:
         except Exception as e:
             Log.logger.error('[ES] Search failed. Reason: %r', e)
             return False
-
-
-#es = ElasticManager()
-#print(asyncio.run(es.search('Решил сделать')))

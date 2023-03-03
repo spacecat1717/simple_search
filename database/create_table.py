@@ -5,6 +5,7 @@ from database.connection import Connection
 
 
 class CreateTable:
+    """Creates table in DB"""
     def __init__(self):
         self._connection = Connection()
 

@@ -6,6 +6,7 @@ from elastic.elastic_class import ElasticManager
 
 
 class ExportToElasticsearch(ExportManager):
+    """Exports data from DB to ES"""
 
     def __init__(self):
         super().__init__()
@@ -17,8 +18,10 @@ class ExportToElasticsearch(ExportManager):
         )
         async with self._connection as conn:
             records = await conn.fetch(command)
+        Log.logger.info('[DB] All the records were got')
         for rec in records[1::]:
             await self._es.add_record({'id': rec[0],
                                       'text': rec[1]
                                       })
+        Log.logger.info('[DB] All the records were exported to ES')
 

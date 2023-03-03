@@ -1,11 +1,10 @@
-"""this module creates connection to DB using Singleton class"""
-
 import asyncpg
 
 from config.config import DB_USER, DB_NAME, DB_PASS, DB_HOST
 
 
 class Connection:
+    """DB connection as Singleton"""
     __instance = None
 
     def __new__(cls):

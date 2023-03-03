@@ -1,3 +1,4 @@
+"""Logger configuration file"""
 from os import path
 import logging.config
 
