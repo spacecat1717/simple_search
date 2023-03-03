@@ -5,6 +5,7 @@ from elastic.elastic_class import ElasticManager
 
 do_search = Blueprint('search', __name__)
 
+
 @do_search.get('/')
 async def search():
     query = request.args.get('q')
