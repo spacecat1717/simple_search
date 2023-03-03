@@ -27,6 +27,8 @@ async def prepare_to_run():
     #tests connection to ES
     if not await es.test_conn():
         raise("There is no connection to ES! Please, check logs!")
+    else:
+        await es.create_index()
 
 if __name__ == "__main__":
     asyncio.run(prepare_to_run())
