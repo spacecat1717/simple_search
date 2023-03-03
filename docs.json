@@ -1,0 +1,80 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "defaultTitle",
+    "description": "defaultDescription",
+    "version": "0.1"
+  },
+  "servers": [
+    {
+      "url": "https://89cf-178-176-72-155.eu.ngrok.io"
+    }
+  ],
+  "paths": {
+    "/search/q='?@825B'": {
+      "get": {
+        "description": "Auto generated using Swagger Inspector",
+        "responses": {
+          "200": {
+            "description": "Auto generated using Swagger Inspector",
+            "content": {
+              "text/html": {
+                "schema": {
+                  "type": "string"
+                },
+                "examples": {
+                  "0": {
+                    "value": "<!DOCTYPE html>\n<html lang=\"en-US\">\n  <head>\n    <meta charset=\"utf-8\">\n    <meta name=\"author\" content=\"ngrok\">\n    <meta name=\"description\" content=\"ngrok is the fastest way to put anything on the internet with a single command.\">\n    <meta name=\"robots\" content=\"noindex, nofollow\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n    <link id=\"style\" rel=\"stylesheet\" href=\"https://cdn.ngrok.com/static/css/error.css\">\n    <noscript>You are about to visit 89cf-178-176-72-155.eu.ngrok.io, served by 178.176.72.155. This website is served for free through ngrok.com. You should only visit this website if you trust whoever sent the link to you. (ERR_NGROK_6024)</noscript>\n    <script id=\"script\" src=\"https://cdn.ngrok.com/static/js/error.js\" type=\"text/javascript\"></script>\n  </head>\n  <body id=\"ngrok\">\n    <div id=\"root\" data-payload=\"eyJjZG5CYXNlIjoiaHR0cHM6Ly9jZG4ubmdyb2suY29tLyIsImNvZGUiOiI2MDI0IiwiaG9zdHBvcnQiOiI4OWNmLTE3OC0xNzYtNzItMTU1LmV1Lm5ncm9rLmlvIiwibWVzc2FnZSI6IllvdSBhcmUgYWJvdXQgdG8gdmlzaXQgODljZi0xNzgtMTc2LTcyLTE1NS5ldS5uZ3Jvay5pbywgc2VydmVkIGJ5IDE3OC4xNzYuNzIuMTU1LiBUaGlzIHdlYnNpdGUgaXMgc2VydmVkIGZvciBmcmVlIHRocm91Z2ggbmdyb2suY29tLiBZb3Ugc2hvdWxkIG9ubHkgdmlzaXQgdGhpcyB3ZWJzaXRlIGlmIHlvdSB0cnVzdCB3aG9ldmVyIHNlbnQgdGhlIGxpbmsgdG8geW91LiIsInNlcnZpbmdJUCI6IjE3OC4xNzYuNzIuMTU1IiwidGl0bGUiOiJPSyJ9\"></div>\n  </body>\n</html>\n"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "servers": [
+          {
+            "url": "https://89cf-178-176-72-155.eu.ngrok.io"
+          }
+        ]
+      },
+      "servers": [
+        {
+          "url": "https://89cf-178-176-72-155.eu.ngrok.io"
+        }
+      ]
+    },
+    "/delete/rec_id=81": {
+      "get": {
+        "description": "Auto generated using Swagger Inspector",
+        "responses": {
+          "200": {
+            "description": "Auto generated using Swagger Inspector",
+            "content": {
+              "text/html": {
+                "schema": {
+                  "type": "string"
+                },
+                "examples": {
+                  "0": {
+                    "value": "<!DOCTYPE html>\n<html lang=\"en-US\">\n  <head>\n    <meta charset=\"utf-8\">\n    <meta name=\"author\" content=\"ngrok\">\n    <meta name=\"description\" content=\"ngrok is the fastest way to put anything on the internet with a single command.\">\n    <meta name=\"robots\" content=\"noindex, nofollow\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n    <link id=\"style\" rel=\"stylesheet\" href=\"https://cdn.ngrok.com/static/css/error.css\">\n    <noscript>You are about to visit 89cf-178-176-72-155.eu.ngrok.io, served by 178.176.72.155. This website is served for free through ngrok.com. You should only visit this website if you trust whoever sent the link to you. (ERR_NGROK_6024)</noscript>\n    <script id=\"script\" src=\"https://cdn.ngrok.com/static/js/error.js\" type=\"text/javascript\"></script>\n  </head>\n  <body id=\"ngrok\">\n    <div id=\"root\" data-payload=\"eyJjZG5CYXNlIjoiaHR0cHM6Ly9jZG4ubmdyb2suY29tLyIsImNvZGUiOiI2MDI0IiwiaG9zdHBvcnQiOiI4OWNmLTE3OC0xNzYtNzItMTU1LmV1Lm5ncm9rLmlvIiwibWVzc2FnZSI6IllvdSBhcmUgYWJvdXQgdG8gdmlzaXQgODljZi0xNzgtMTc2LTcyLTE1NS5ldS5uZ3Jvay5pbywgc2VydmVkIGJ5IDE3OC4xNzYuNzIuMTU1LiBUaGlzIHdlYnNpdGUgaXMgc2VydmVkIGZvciBmcmVlIHRocm91Z2ggbmdyb2suY29tLiBZb3Ugc2hvdWxkIG9ubHkgdmlzaXQgdGhpcyB3ZWJzaXRlIGlmIHlvdSB0cnVzdCB3aG9ldmVyIHNlbnQgdGhlIGxpbmsgdG8geW91LiIsInNlcnZpbmdJUCI6IjE3OC4xNzYuNzIuMTU1IiwidGl0bGUiOiJPSyJ9\"></div>\n  </body>\n</html>\n"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "servers": [
+          {
+            "url": "https://89cf-178-176-72-155.eu.ngrok.io"
+          }
+        ]
+      },
+      "servers": [
+        {
+          "url": "https://89cf-178-176-72-155.eu.ngrok.io"
+        }
+      ]
+    }
+  },
+  "components": {}
+}
