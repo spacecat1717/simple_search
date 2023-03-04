@@ -51,10 +51,13 @@ class RecordManager:
         :param ids: list of records ids received from ES (calls in search Blueprint)
         """
         command = (
-            "SELECT * FROM test_table3 WHERE id IN {} ORDER BY created_date LIMIT 20"
+            "SELECT * FROM test_table3 WHERE id {}  ORDER BY created_date LIMIT 20"
         )
         async with self._connection as conn:
-            sql = command.format(tuple(ids))
+            if len(ids) > 1:
+                sql = command.format('IN ' + str(tuple(ids)))
+            else:
+                sql = command.format(f'= {ids[0]}')
             res = await conn.fetch(sql)
         result = []
         for r in res:
