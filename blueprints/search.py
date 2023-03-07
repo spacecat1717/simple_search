@@ -15,8 +15,8 @@ async def search() -> tuple:
     es = ElasticManager()
     db = RecordManager()
     record_ids = await es.search(query)
-    result = await db.get_records_by_search(record_ids)
-    if result:
+    if record_ids:
+        result = await db.get_records_by_search(record_ids)
         return {"status": "ok", "data": result}, 200
     return {"status": "ok", "data": "По вашему запросу ничего не найдено"}, 200
 
