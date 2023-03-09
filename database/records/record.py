@@ -1,3 +1,5 @@
+import asyncio
+
 from config.log_config import Logger as Log
 from database.connection import Connection
 from elastic.elastic_class import ElasticManager
@@ -45,16 +47,16 @@ class Record:
         command = (
             "DELETE FROM test_table3 WHERE id = $1"
         )
-        try:
-            async with self._connection as conn:
-                await conn.execute(command, self.id)
-            Log.logger.info('[DB] Record %r was deleted from DB', self.id)
-            if await self._es.delete_record(self.id):
-                return True
+        if await self._es.delete_record(self.id):
             Log.logger.error('[DB] Could not delete record %r. Something went wrong with ES', self.id)
-            return False
-        except Exception as e:
-            Log.logger.error('[DB] Could not delete record %r. Reason: %r', self.id, e)
-            return False
-
+            try:
+                async with self._connection as conn:
+                    await conn.execute(command, self.id)
+                Log.logger.info('[DB] Record %r was deleted from DB', self.id)
+                return True
+            except Exception as e:
+                Log.logger.error('[DB] Record %r was not delete from DB, only from ES. Reason: %r', self.id, e)
+                return True
+        Log.logger.error('[DB] Could not delete record %r. Reason: %r', self.id, e)
+        return False
 
